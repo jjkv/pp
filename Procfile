@@ -1,1 +1,1 @@
-web: flask db upgrade; gunicorn pair-gramming-pro:app
+web: flask db upgrade; gunicorn pairgrammingpro:app

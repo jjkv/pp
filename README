@@ -1,0 +1,10 @@
+new repo for better collaboration!
+pairgramming pro source code (app can be found here: https://pair-gramming-pro.herokuapp.com/index)
+
+to do:
+ - stats page, make it look nice, links to user list by school/course
+ - more testing
+ - general ui overhaul
+ - graphic schedule editing/display?
+ - set up email, again
+ - store admin info in environement variables, possibly school/classes as well

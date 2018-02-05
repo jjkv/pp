@@ -15,6 +15,7 @@ class School(db.Model):
     name = db.Column(db.String(128), index=True, unique=True)
     courses = db.relationship('Course', backref='institution', lazy='dynamic')
     students = db.relationship('User', backref='attending', lazy='dynamic')
+    admin_school = db.Column(db.Boolean)
 
     def __repr__(self):
         return '{}'.format(self.name)

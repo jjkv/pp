@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+<h1>Your top 3 best matches</h1>
+
+{% for m in matches %}
+<li><a href="{{ url_for('user', username=m.username) }}">{{ m.username }}</a></li>
+{% endfor %}
+{% endblock %}

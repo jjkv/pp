@@ -1,0 +1,17 @@
+Hello {{u1}} and {{u2}},
+
+You have been partnered by Pairgramming Pro for your next pair programming assignment, congratulations! 
+
+Here is when you both are free to work together:
+
+{{schedule}}
+
+
+
+Happy Programming,
+
+-Pairgramming Pro
+
+PS. A message from {{u1}}:
+
+{{body}}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+    <h2>Pairgramming Pro - {{ current_user.username }}</h2>
+    <p>
+        Welcome! Pairgramming Pro is a scheduling tool for Tufts CS pair programming assignments. Pairgramming Pro will find you a partner with maximum overlapping time to work.
+    </p>
+    <p>    
+        To get started, add some times to your schedule when you'd be free to work. You can be as precise as you want
+        with your free time: Tuesday from 10:39 pm until Wednesday at 4:12 am is totally cool. The more time blocks you add to your work schedule, the more likely we will find you an optimal partner. When your schedule is ready, hit Request Partner.
+    </p>
+    <div>
+        <a href="{{ url_for('request_partner') }}" class="btn btn-success btn-lg">Request Partner</a>
+    </div>
+    <br>
+    <table class="table">
+        <tr>
+            <th>Add block of free work time</th>
+            <th>Your work schedule</th> 
+        </tr>
+        <tr>
+            <td>
+                {% if form %}
+                
+                    <form action="" method="post">
+                        {{ form.hidden_tag() }}
+                        <p>
+                            {{ form.sday.label }}<br>
+                            {{ form.sday }}
+                        </p>
+                        <p>
+                            {{ form.shours.label }}<br>
+                            {{ form.shours }} : {{ form.smins }}
+                            {% for error in form.smins.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </p>
+                        <p>
+                            {{ form.ehours.label }}<br>
+                            {{ form.ehours }} : {{ form.emins }}
+                            {% for error in form.emins.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </p>
+                        <p>
+                            {{ form.submit }}
+                        </p>
+                    </form>
+                        
+
+                {% endif %}
+            </td>
+            <td>
+                {% if schedule %}
+                    {% for item in schedule %}
+                    <div><a href="{{ url_for('delete', id=item.id) }}" class="btn btn-danger btn-xs">X</a> {{item}}</div>
+                    {% endfor %}
+                {% else %}
+                    Nothing yet, add some time blocks!
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+{% endblock %}

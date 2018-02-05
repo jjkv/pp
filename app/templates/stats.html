@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<h2>Pairgramming Pro Statistics</h2>
+<p>Schools:</p>
+{% for s in schools%}
+{{s.name}}
+{% endfor %}
+<p>Courses:</p>
+{% for c in courses%}
+  {{c.name}}
+  {{c.institution}}
+{% endfor %}
+<p>Students</p>
+{% for u in users %}
+  {{u.username}}
+  {{u.email}}
+  {{u.enrolled}}
+  {{u.attending}}
+{% endfor %}
+{% endblock %}

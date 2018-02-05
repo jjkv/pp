@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+<h1>Congrats!</h1>
+
+<p>You've been paired with user: 
+  <a href="{{ url_for('user', username=partner.username) }}">{{ partner.username }}</a>
+  </p>
+
+<p>Total free time together: {{ ft }} mins/week</p>
+
+<a href="{{ url_for('contact', schedule=schedule, total=ft, partner=partner.id) }}" class="btn btn-default">Send them an Email</a>
+
+<h3>Your overlapping schedule: </h3>
+        {% for item in schedule %}
+        <div><p>{{ item }}</b></p></div>
+{% endfor %}
+
+    <hr style="border-top: 1px solid #8c8b8b">
+
+    <p>
+      <h4 style="display: inline-block">Not a fan of {{ partner.username}}?</h4>
+      <a href="{{ url_for('other_matches', matches=rest) }}">See your other matches</a>
+    </p>
+    <p><a href="{{ url_for('index') }}">Back</a></p>
+
+{% endblock %}

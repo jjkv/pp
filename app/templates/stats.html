@@ -2,17 +2,37 @@
 
 {% block app_content %}
 <h2>Pairgramming Pro Statistics</h2>
-
-<p>Courses:</p>
-{% for c in courses%}
-  {{c.name}}
-  {{c.institution}}
-{% endfor %}
-<p>Students</p>
-{% for u in users %}
-  {{u.username}}
-  {{u.email}}
-  {{u.enrolled}}
-  {{u.attending}}
-{% endfor %}
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				Course
+			</th>
+			<th>
+				School
+			</th>
+			<th>
+				Enrolled
+			</th>
+			<th>
+				Students
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for c in cn_pair %}
+			<tr>
+				<th>{{c[0].name}}</th>
+				<td>{{c[0].institution}}</td>
+				<td>{{c[1]}}</td>
+				<td>
+					{% for s in c[0].students %}
+						<a href="{{ url_for('user', username=s.username) }}">{{ s.username }}</a><br>
+					{% endfor %}
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+	
+</table>
 {% endblock %}

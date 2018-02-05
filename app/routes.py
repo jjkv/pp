@@ -283,4 +283,4 @@ def stats():
     schools = School.query.all()
     courses = Course.query.all()
     users = User.query.all()
-    return render_template('stats.html', title='Stats', schools=schools, courses=courses, users=users)
+    return render_template('stats.html', title='Stats', schools=schools, cn_pair=list(map(lambda x: (x, len(list(x.students))), list(courses))), users=users)

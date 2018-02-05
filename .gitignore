@@ -10,6 +10,8 @@ Vagrantfile
 # C extensions
 *.so
 
+logs/
+
 # Distribution / packaging
 .Python
 build/

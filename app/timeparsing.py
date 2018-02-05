@@ -76,8 +76,8 @@ def parse_hours(s):
     elif hours < HOURS_PER_DAY and hours > NOON:
         if m != "":
             raise Exception("'can't mix military time and am/pm")
-    elif m != "PM" and m != "":
-        raise Exception('extra characters')
+        elif m != "PM" and m != "":
+            raise Exception('extra characters')
     elif hours == HOURS_PER_DAY:
         hours = 0
     elif hours == NOON and m == "AM":
@@ -95,7 +95,6 @@ def parse_hours(s):
 def mins_to_time(n):
     m = "AM"
     temp = int(n) % MINS_PER_WEEK
-    #flash('its this')
     dt = days[temp // MINS_PER_DAY]
     hours = temp % MINS_PER_DAY
     hours = hours // MINS_PER_HOUR

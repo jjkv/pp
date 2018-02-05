@@ -56,8 +56,8 @@ def validate_username(self, username):
 class RegistrationForm(FlaskForm):
     username = StringField('Username (preferred name would be ideal: first_last)', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    course = SelectField('Course', choices=DM.choices_format(Choices.courses), validators=[DataRequired()])
     school = SelectField('School', choices=DM.choices_format(Choices.schools), validators=[DataRequired()])
+    course = SelectField('Course', choices=DM.choices_format(Choices.courses), validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')

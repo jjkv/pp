@@ -128,7 +128,10 @@ def purge():
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
-    form = EditProfileForm(current_user.username, current_user.attending.name, taken=current_user.taken)
+    if current_user.attending:
+        form = EditProfileForm(current_user.username, current_user.attending.name, taken=current_user.taken)
+    else:
+        form = EditProfileForm(current_user.username, taken=current_user.taken)
     if form.validate_on_submit():
         DM.edit(db, current_user, form)
         flash('Your changes have been saved.')
@@ -179,10 +182,10 @@ def request_partner():
     compatible_users = list(filter(lambda x: x.username != current_user.username and x.taken != True, 
                               User.query.filter_by(enrolled=current_user.enrolled)))
     if not compatible_users:
-        flash('Sorry, there are no compatible COMP'+str(current_user.enrolled)+' student users right now, please try again later or add more time to your work schedule.')
+        flash('Sorry, there are no compatible '+str(current_user.enrolled)+' student users right now, please try again later or add more time to your work schedule.')
         return redirect(url_for('index'))
     elif len(list(compatible_users)) < 1:
-        flash('Sorry, there are no compatible COMP'+str(current_user.enrolled)+' student users right now, please try again later or add more time to your work schedule.')
+        flash('Sorry, there are no compatible '+str(current_user.enrolled)+' student users right now, please try again later or add more time to your work schedule.')
         return redirect(url_for('index'))
 
     my_intervals = list(map(lambda x: tuple(map(str, [x.start_day, 
@@ -197,8 +200,7 @@ def request_partner():
                                                        x.start_time, 
                                                        x.end_day, 
                                                        x.end_time])),
-                                    you.free_times))
-        
+                                    you.free_times))        
         try:
             mins1, mins2      = TP.timestr_to_minutes(my_intervals), TP.timestr_to_minutes(your_intervals)
             tree1, tree2      = IN.list_to_intervaltree(mins1), IN.list_to_intervaltree(mins2)

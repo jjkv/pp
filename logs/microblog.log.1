@@ -1,0 +1,84 @@
+2018-02-05 14:40:56,790 INFO: Microblog startup [in /Users/jack_osx/Development/pp_new/pairgrammingpro/app/__init__.py:52]
+2018-02-05 14:41:59,805 INFO: Microblog startup [in /Users/jack_osx/Development/pp_new/pairgrammingpro/app/__init__.py:52]
+2018-02-05 14:45:53,237 INFO: Microblog startup [in /Users/jack_osx/Development/pp_new/pairgrammingpro/app/__init__.py:52]
+2018-02-05 14:45:56,184 ERROR: Exception on /stats [GET] [in /Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/app/routes.py", line 286, in stats
+    return render_template('stats.html', title='Stats', schools=schools, courses=courses, users=users)
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask/templating.py", line 134, in render_template
+    context, ctx.app)
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask/templating.py", line 116, in _render
+    rv = template.render(context)
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/jinja2/environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/jinja2/environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/app/templates/stats.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/app/templates/base.html", line 1, in top-level template code
+    {% extends 'bootstrap/base.html' %}
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 4, in block "doc"
+    {%- block html %}
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 20, in block "html"
+    {% block body -%}
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 23, in block "body"
+    {% block content -%}
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/app/templates/base.html", line 53, in block "content"
+    {% block app_content %}{% endblock %}
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/app/templates/stats.html", line 20, in block "app_content"
+    <td>{{len(list(c.students))}}</td>
+UndefinedError: 'list' is undefined
+2018-02-05 14:46:23,176 INFO: Microblog startup [in /Users/jack_osx/Development/pp_new/pairgrammingpro/app/__init__.py:52]
+2018-02-05 14:46:24,261 ERROR: Exception on /stats [GET] [in /Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/app/routes.py", line 286, in stats
+    return render_template('stats.html', title='Stats', schools=schools, courses=courses, users=users)
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask/templating.py", line 134, in render_template
+    context, ctx.app)
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask/templating.py", line 116, in _render
+    rv = template.render(context)
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/jinja2/environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/jinja2/environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/app/templates/stats.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/app/templates/base.html", line 1, in top-level template code
+    {% extends 'bootstrap/base.html' %}
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 4, in block "doc"
+    {%- block html %}
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 20, in block "html"
+    {% block body -%}
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/venv/lib/python2.7/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 23, in block "body"
+    {% block content -%}
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/app/templates/base.html", line 53, in block "content"
+    {% block app_content %}{% endblock %}
+  File "/Users/jack_osx/Development/pp_new/pairgrammingpro/app/templates/stats.html", line 20, in block "app_content"
+    <td>{{len(c.students)}}</td>
+UndefinedError: 'len' is undefined
+2018-02-05 14:46:45,671 INFO: Microblog startup [in /Users/jack_osx/Development/pp_new/pairgrammingpro/app/__init__.py:52]
+2018-02-05 14:56:39,792 INFO: Microblog startup [in /Users/jack_osx/Development/pp_new/pairgrammingpro/app/__init__.py:52]

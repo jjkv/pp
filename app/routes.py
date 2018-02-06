@@ -174,12 +174,14 @@ def reset_password(token):
 @app.route('/request_partner', methods=['GET', 'POST'])
 @login_required
 def request_partner():
+    old_partner = ""
     if current_user.taken:
-        flash('You already have a partner, please check your email! If this is not the case, or you would like to request a new partner, go to Profile -> Edit Profile and verify that you do not have a partner.')
-        return redirect(url_for('index'))
-    me = User.query.filter_by(username=current_user.username)
-    me.taken = False
-    compatible_users = list(filter(lambda x: x.username != current_user.username and x.taken != True, 
+        old_partner = current_user.partner
+        current_user.decouple()
+        db.session.commit()
+        assert(current_user.taken == False)
+        #flash('You already have a partner, please check your email! If this is not the case, or you would like to request a new partner, go to Profile -> Edit Profile and verify that you do not have a partner.')
+    compatible_users = list(filter(lambda x: x.username != current_user.username and x.taken != True and x.username != old_partner, 
                               User.query.filter_by(enrolled=current_user.enrolled)))
     if not compatible_users:
         flash('Sorry, there are no compatible '+str(current_user.enrolled)+' student users right now, please try again later or add more time to your work schedule.')
@@ -272,8 +274,7 @@ def contact(schedule, total, partner):
         rs      = list(set(rs + others))
         send_contact_email(rs, form.body.data, schedule)
         flash('You and your new partner have been emailed, please check your inbox.')
-        current_user.taken = True
-        u.taken = True
+        current_user.set_partner(u)
         db.session.commit()
         return redirect(url_for('index'))
     return render_template('contact.html', form=form)

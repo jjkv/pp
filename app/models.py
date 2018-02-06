@@ -43,6 +43,21 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
+    def set_partner(self, other):
+        other.partner = str(self.username)
+        self.partner = str(other.username)
+        other.taken = True
+        self.taken = True
+        assert(self.partner == other.username)
+        assert(other.partner == self.username)
+
+    def decouple(self):
+        p = User.query.filter_by(username=self.partner).first()
+        p.partner = None
+        self.partner = None
+        p.taken = False
+        self.taken = False
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 

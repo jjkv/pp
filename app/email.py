@@ -23,9 +23,9 @@ def send_password_reset_email(user):
                text_body=render_template('email/reset_password.txt', user=user, token=token),
                html_body=render_template('email/reset_password.html', user=user, token=token))
 
-def send_contact_email(recipients, body, schedule):
+def send_contact_email(recipients, users, body, schedule):
     send_email('[Pairgramming Pro] New Partner',
                  sender=app.config['ADMINS'][0],
                  recipients=recipients,
-                 text_body=render_template('email/contact_email.txt', u1=recipients[0], u2=recipients[1], body=body, schedule=schedule),
-                 html_body=render_template('email/contact_email.html', u1=recipients[0], u2=recipients[1], body=body, schedule=schedule))
+                 text_body=render_template('email/contact_email.txt', u1=users[0], u2=users[1], body=body, schedule=schedule),
+                 html_body=render_template('email/contact_email.html', u1=users[0], u2=users[1], body=body, schedule=schedule))

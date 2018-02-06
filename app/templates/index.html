@@ -12,7 +12,9 @@
     </p>
     {% if current_user.taken %}
         <p><b>Your current pair programming partner: </b><a href="{{ url_for('user', username=current_user.partner) }}">{{ current_user.partner }}</a></p>
-        <a href="{{ url_for('request_partner') }}">Need a new partner?</a>
+        <div>
+            <a href="{{ url_for('request_partner') }}" class="btn btn-success">Request New Partner</a>
+        </div>
     {% else %}
         <div>
             <a href="{{ url_for('request_partner') }}" class="btn btn-success btn-lg">Request Partner</a>

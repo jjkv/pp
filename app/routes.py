@@ -272,7 +272,7 @@ def contact(schedule, total, partner):
         rs      = [str(current_user.email), str(u.email)]
         others  = list(map(lambda x: str(x), form.recipients.data.replace(' ','').split(',')))
         rs      = list(set(rs + others))
-        send_contact_email(rs, form.body.data, schedule)
+        send_contact_email(rs, (current_user.username, u.username), form.body.data, schedule)
         flash('You and your new partner have been emailed, please check your inbox.')
         current_user.set_partner(u)
         db.session.commit()

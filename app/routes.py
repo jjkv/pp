@@ -89,6 +89,7 @@ def register():
             flash(functools.reduce(lambda x, y: x+y, inst.args, "error(s) in registration: ")+".")
             return redirect(url_for('register'))
         return redirect(url_for('login'))
+    flash("Don't see your school here and want to use this website? Email us at pairgramming.pro@gmail.com")
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/user/<username>')

@@ -283,6 +283,6 @@ def contact(schedule, total, partner):
 @app.route('/stats', methods=['POST', 'GET'])
 def stats():
     schools = School.query.all()
-    courses = Course.query.all()
+    courses = list(filter(lambda x: x.name != 'COMP1', list(Course.query.all())))
     users = User.query.all()
     return render_template('stats.html', title='Stats', schools=schools, cn_pair=list(map(lambda x: (x, len(list(x.students))), list(courses))), users=users)

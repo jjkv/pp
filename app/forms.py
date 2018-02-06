@@ -33,26 +33,6 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
-'''
-def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
-        if user is not None:
-            raise ValidationError('Please use a different username.')
-
-    def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
-        if '.' not in str(email.data) and 'jack' not in str(email.data) and 'pair' not in str(email.data):
-            raise ValidationError('Invalid email address, please try again.')
-        if user is not None:
-            raise ValidationError('Please use a different email address.')
-
-    def validate_password(self, password):
-        if 'pass' in str(password.data):
-            raise ValidationError('You can do better than that, please try a different password')
-        elif len(str(password.data)) < 8:
-            raise ValidationError('Password should be at least 8 characters, please try again')
-'''
-
 class RegistrationForm(FlaskForm):
     username = StringField('Username (preferred name would be ideal: first_last)', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -84,7 +64,6 @@ class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     course = SelectField('Course', choices=DM.choices_format(Choices.courses), validators=[DataRequired()])
     clear = BooleanField('Clear your schedule on submit.')
-    taken = BooleanField('I have a partner (I will not be able to be paired with other users).')
     submit = SubmitField('Submit')
 
     def __init__(self, original_username, original_school, *args, **kwargs):

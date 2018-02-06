@@ -46,7 +46,6 @@ def edit(db, user, form):
             db.session.delete(i)
         flash('Schedule cleared.')
     user.username = form.username.data
-    user.taken = form.taken.data
     c = add_or_get(db, form.course.data)
     c.institution = user.attending
     user.enrolled = c

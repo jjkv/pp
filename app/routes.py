@@ -215,6 +215,7 @@ def request_partner():
 
             if combined_ft > 0:
                 match_list.append((you, free_inter_ts, combined_ft))
+                flash((you, free_inter_ts, combined_ft))
         except Exception as inst:
             flash(functools.reduce(lambda x, y: x+y, inst.args, 
                          "error(s) in partner request: ")+".")
@@ -227,6 +228,7 @@ def request_partner():
         best = match_list[0]
         overlap = list(map(lambda x: ""+(x[0])+" at "+(x[1])+" until "+(x[2])+" at "+(x[3])+".", best[1]))
         db.session.commit()
+        flash(match_list)
         return render_template('request_partner.html', 
                                 title='Request Partner', 
                                 partner=best[0], 
@@ -242,6 +244,7 @@ def request_partner():
 @app.route('/other_matches/<matches>', methods=['GET', 'POST'])
 @login_required
 def other_matches(matches):
+    flash(matches)
     if len(str(matches)) <= 2:
         flash('no other matches right now')
         return redirect(url_for('index'))
@@ -249,6 +252,7 @@ def other_matches(matches):
     chunks = list(zip(*[iter(temp)]*6))
 
     temp2 = []
+    flash(chunks)
     for c in chunks[:5]:
         flash(c)
         name = str(c[0])

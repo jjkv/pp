@@ -46,6 +46,8 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
             raise ValidationError('Please use a different username.')
+        if "'" in username or "," in username or " " in username:
+            raise ValidationError("Please no , or ' in username thanks.")
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()

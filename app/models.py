@@ -39,24 +39,30 @@ class User(UserMixin, db.Model):
     free_times = db.relationship('FreeInterval', backref='author', lazy='dynamic')
     taken = db.Column(db.Boolean)
     partner = db.Column(db.String(128))
+    p_id = db.Column(db.Integer)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
     def set_partner(self, other):
-        other.partner = str(self.username)
-        self.partner = str(other.username)
+        other.p_id = self.id
+        self.p_id = other.id
         other.taken = True
         self.taken = True
-        assert(self.partner == other.username)
-        assert(other.partner == self.username)
+        assert(self.p_id == other.id)
+        assert(other.p_id == self.id)
+
+    def partner_username(self):
+        if self.taken:
+            return User.query.get(self.p_id).username
 
     def decouple(self):
-        p = User.query.filter_by(username=self.partner).first()
-        p.partner = None
-        self.partner = None
-        p.taken = False
-        self.taken = False
+        if self.taken and self.p_id is not None:
+            p = User.query.get(self.p_id)
+            p.p_id = -1
+            self.p_id = -1
+            p.taken = False
+            self.taken = False
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

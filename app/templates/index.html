@@ -11,7 +11,7 @@
         with your free time: Tuesday from 10:39 pm until Wednesday at 4:12 am is totally cool. The more time blocks you add to your work schedule, the more likely we will find you an optimal partner. When your schedule is ready, hit Request Partner.
     </p>
     {% if current_user.taken %}
-        <p><b>Your current pair programming partner: </b><a href="{{ url_for('user', username=current_user.partner) }}">{{ current_user.partner }}</a></p>
+        <p><b>Your current pair programming partner: </b><a href="{{ url_for('user', username=current_user.partner_username()) }}">{{ current_user.partner_username() }}</a></p>
         <div>
             <a href="{{ url_for('request_partner') }}" class="btn btn-success">Request New Partner</a>
         </div>

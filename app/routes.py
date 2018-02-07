@@ -177,7 +177,7 @@ def reset_password(token):
 def request_partner():
     old_partner = ""
     if current_user.taken:
-        old_partner = current_user.partner
+        old_partner = current_user.partner_username()
         current_user.decouple()
         db.session.commit()
         assert(current_user.taken == False)

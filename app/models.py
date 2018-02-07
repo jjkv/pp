@@ -53,7 +53,7 @@ class User(UserMixin, db.Model):
         assert(other.p_id == self.id)
 
     def partner_username(self):
-        if self.taken:
+        if self.taken and self.p_id is not None:
             return User.query.get(self.p_id).username
 
     def decouple(self):

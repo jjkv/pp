@@ -31,10 +31,12 @@
 					{{m[2]}}
 				</th>
 				<th>
-					{{m[1]}}
+					{% for x in m[1] %}
+						{{x}}<br>
+					{% endfor %}
 				</th>
 				<th>
-					<a href="{{ url_for('contact', schedule=m[1], total=m[2], partner=m[0].id) }}" class="btn btn-default">Send them an Email</a>
+					<a href="{{ url_for('contact', schedule=m[1], total=m[2], partner=m[0].id) }}" class="btn btn-default">Send Partner Request</a>
 				</th>
 			</tr>
 		{% endfor %}

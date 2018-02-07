@@ -197,6 +197,7 @@ def request_partner():
                        current_user.free_times))
 
     match_list = []
+    #to do, make this a single function
     for you in compatible_users:
         your_intervals = list(map(lambda x: tuple(map(str, [x.start_day, 
                                                        x.start_time, 
@@ -233,29 +234,52 @@ def request_partner():
                                 schedule=overlap, 
                                 ft=best[2],
                                 link=str(best[0].username),
-                                rest=list(map(lambda x: (x[0].username, x[1], x[2]), match_list[1:])))
+                                rest=list(map(lambda x: str(x[0].id), match_list[1:])))
     else:
         flash('Sorry, we could not find you a match! Please try again later.')
         return redirect(url_for('index'))
 
-# this is so hacky omg i hate it
 @app.route('/other_matches/<matches>', methods=['GET', 'POST'])
 @login_required
 def other_matches(matches):
     if len(str(matches)) <= 2:
         flash('no other matches right now')
         return redirect(url_for('index'))
-    temp = matches.replace('[','').replace(']','').replace('(','').replace(')','').replace("'",'').replace(' ','').split(',')
-    chunks = list(zip(*[iter(temp)]*6))
+    matches = matches.replace('[','').replace(']','').replace('(','').replace(')','').replace("'",'').replace(' ','').split(',')
 
-    temp2 = []
-    for c in chunks[:5]:
-        name = str(c[0])
-        user = User.query.filter_by(username=name).first()
-        schedule = str(c[1])+" at "+str(c[2])+" until "+str(c[3])+" at "+str(c[4])+"."
-        total = str(c[5])
-        temp2.append((user, schedule, total))
-    return render_template('other_matches.html', matches=temp2)
+    my_intervals = list(map(lambda x: tuple(map(str, [x.start_day, 
+                                                 x.start_time, 
+                                                 x.end_day, 
+                                                 x.end_time])), 
+                       current_user.free_times))
+
+    rest = []
+    for m in matches:
+        you = User.query.get(m)
+
+        your_intervals = list(map(lambda x: tuple(map(str, [x.start_day, 
+                                                       x.start_time, 
+                                                       x.end_day, 
+                                                       x.end_time])),
+                                    you.free_times))        
+        try:
+            mins1, mins2      = TP.timestr_to_minutes(my_intervals), TP.timestr_to_minutes(your_intervals)
+            tree1, tree2      = IN.list_to_intervaltree(mins1), IN.list_to_intervaltree(mins2)
+            intertree         = IN.intervaltree_intersections(tree1, tree2)
+            interlist         = IN.condense_intervals(intertree)
+            newtree           = IN.intervals_to_tree(interlist)
+            intersection_mins = IN.tree_to_list(newtree)
+            free_inter_ts     = TP.minutes_to_timestr(intersection_mins)
+            combined_ft       = IN.total_free_time(intersection_mins)
+
+            rest.append((you, free_inter_ts, combined_ft))
+        except Exception as inst:
+            flash(functools.reduce(lambda x, y: x+y, inst.args, 
+                         "error(s) in partner request: ")+".")
+            flash('Check that your schedule is correctly formatted and try again.')
+            return redirect(url_for('index'))
+
+    return render_template('other_matches.html', matches=rest)
 
 @app.route('/delete/<id>', methods=['GET', 'POST'])
 @login_required

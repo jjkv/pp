@@ -250,6 +250,7 @@ def other_matches(matches):
 
     temp2 = []
     for c in chunks[:5]:
+        flash(c)
         name = str(c[0])
         user = User.query.filter_by(username=name).first()
         schedule = str(c[1])+" at "+str(c[2])+" until "+str(c[3])+" at "+str(c[4])+"."

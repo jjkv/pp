@@ -15,7 +15,6 @@ import app.timeparsing as TP
 import app.db_manip as DM
 #from scripts import ut as UT
 
-
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
@@ -234,23 +233,29 @@ def request_partner():
                                 schedule=overlap, 
                                 ft=best[2],
                                 link=str(best[0].username),
-                                rest=list(map(lambda x: str(x[0].username), match_list[1:])))
+                                rest=list(map(lambda x: (x[0].username, x[1], x[2]), match_list[1:])))
     else:
         flash('Sorry, we could not find you a match! Please try again later.')
         return redirect(url_for('index'))
 
+# this is so hacky omg i hate it
 @app.route('/other_matches/<matches>', methods=['GET', 'POST'])
 @login_required
 def other_matches(matches):
     if len(str(matches)) <= 2:
         flash('no other matches right now')
         return redirect(url_for('index'))
-    matches = matches.replace('[','').replace(']','').replace(',','').replace(' ','').split("'")
-    matches = list(filter(lambda x: x, matches))
-    user_matches = []
-    for m in matches:
-        user_matches += User.query.filter_by(username=m)
-    return render_template('other_matches.html', matches=user_matches[:5])
+    temp = matches.replace('[','').replace(']','').replace('(','').replace(')','').replace("'",'').replace(' ','').split(',')
+    chunks = list(zip(*[iter(temp)]*6))
+
+    temp2 = []
+    for c in chunks[:5]:
+        name = str(c[0][1:])
+        user = User.query.filter_by(username=name).first()
+        schedule = str(c[1])+" at "+str(c[2])+" until "+str(c[3])+" at "+str(c[4])+"."
+        total = str(c[5])
+        temp2.append((user, schedule, total))
+    return render_template('other_matches.html', matches=temp2)
 
 @app.route('/delete/<id>', methods=['GET', 'POST'])
 @login_required
@@ -284,5 +289,5 @@ def contact(schedule, total, partner):
 def stats():
     schools = School.query.all()
     courses = list(filter(lambda x: x.name != 'COMP1', list(Course.query.all())))
-    users = User.query.all()
+    users   = User.query.all()
     return render_template('stats.html', title='Stats', schools=schools, cn_pair=list(map(lambda x: (x, len(list(x.students))), list(courses))), users=users)

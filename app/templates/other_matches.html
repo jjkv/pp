@@ -4,7 +4,40 @@
 
 <h1>Your top 3 best matches</h1>
 
-{% for m in matches %}
-<li><a href="{{ url_for('user', username=m.username) }}">{{ m.username }}</a></li>
-{% endfor %}
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				User
+			</th>
+			<th>
+				Total time together (mins/week)
+			</th>
+			<th>
+				Combined schedule
+			</th>
+			<th>
+				Like what you see?
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for m in matches %}
+			<tr>
+				<th>
+					<a href="{{ url_for('user', username=m[0].username) }}">{{ m[0].username }}</a>
+				</th>
+				<th>
+					{{m[2]}}
+				</th>
+				<th>
+					{{m[1]}}
+				</th>
+				<th>
+					<a href="{{ url_for('contact', schedule=m[1], total=m[2], partner=m[0].id) }}" class="btn btn-default">Send them an Email</a>
+				</th>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
 {% endblock %}

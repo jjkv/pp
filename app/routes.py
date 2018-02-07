@@ -272,6 +272,7 @@ def other_matches(matches):
             free_inter_ts     = TP.minutes_to_timestr(intersection_mins)
             combined_ft       = IN.total_free_time(intersection_mins)
 
+            free_inter_ts = list(map(lambda x: ""+(x[0])+" at "+(x[1])+" until "+(x[2])+" at "+(x[3])+".", free_inter_ts))
             rest.append((you, free_inter_ts, combined_ft))
         except Exception as inst:
             flash(functools.reduce(lambda x, y: x+y, inst.args, 

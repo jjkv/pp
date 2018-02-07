@@ -2,6 +2,7 @@
 
 {% block app_content %}
     <img src="{{ user.avatar(129) }}">
+    <a href="https://en.gravatar.com/">Add a profile picture with Gravatar</a>
     <table class="table">
         <tr>
             <th>Username:</th>
@@ -39,7 +40,7 @@
     {% else %}
         <h4>{{user.username}}'s Schedule:</h4>
         {% for s in schedule %}
-        {{s}}
+            {{s}}<br>
         {% else %}
             Nothing yet
         {% endfor %}

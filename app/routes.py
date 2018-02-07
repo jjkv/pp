@@ -254,7 +254,7 @@ def other_matches(matches):
                        current_user.free_times))
 
     rest = []
-    for m in matches:
+    for m in matches[:3]:
         you = User.query.get(m)
 
         your_intervals = list(map(lambda x: tuple(map(str, [x.start_day, 
